@@ -1,5 +1,6 @@
 #include "eigenvalue.h"
-#include<windows.h>
+#include <windows.h>
+#include <conio.h> // 用于 _getch() 函数
 
 int main()
 {
@@ -30,6 +31,7 @@ int main()
     // );
     // test.Run();
 
-    system("pause");
+    cout << "按任意键退出...";
+    _getch();
     return 0;
 }
