@@ -289,8 +289,8 @@ void SeekRoots::CubicEquation()
     }
     else
     {
-        p = (3 * c - b * b) / (3 * a * a);
-        q = (2 * b * b * b - 9 * a * b * c + 27 * a * a * d) / (27 * a * a * a);
+        p = (3 * c - b * b) / 3;
+        q = (2 * b * b * b - 9 * b * c + 27 * d) / 27;
     }
     double delta = q * q / 4 + p * p * p / 27; // 判别式
 
@@ -298,35 +298,35 @@ void SeekRoots::CubicEquation()
     {
         if (p == 0 && q == 0) // 三重零根
         {
-            roots.push_back(0);
-            roots.push_back(0);
-            roots.push_back(0);
+            roots.push_back(-b / 3);
+            roots.push_back(-b / 3);
+            roots.push_back(-b / 3);
         }
         else // 三实根
         {
             double u = cbrt(-q / 2);
-            roots.push_back(2 * u);
-            roots.push_back(-u);
-            roots.push_back(-u);
+            roots.push_back(2 * u - b / 3);
+            roots.push_back(-u - b / 3);
+            roots.push_back(-u - b / 3);
         }
     }
     else if (delta > 0) // 一实两复根
     {
         double u = cbrt(-q / 2 + sqrt(delta));
         double v = cbrt(-q / 2 - sqrt(delta));
-        roots.push_back(u + v); // 实根
-        roots_real.push_back(-u / 2 - v / 2);
+        roots.push_back(u + v - b / 3); // 实根
+        roots_real.push_back(-u / 2 - v / 2 - b / 3);
         roots_imaginary.push_back(sqrt(3) * (u - v) / 2); // 复根2
-        roots_real.push_back(-u / 2 - v / 2);
+        roots_real.push_back(-u / 2 - v / 2 - b / 3);
         roots_imaginary.push_back(-sqrt(3) * (u - v) / 2); // 复根3
     }
     else // 三实根
     {
         double r = sqrt(-p / 3);
         double phi = acos(-q / (2 * r * r * r));
-        roots.push_back(2 * r * cos(phi / 3)); // 实根1
-        roots.push_back(2 * r * cos((phi + 2 * M_PI) / 3)); // 实根2
-        roots.push_back(2 * r * cos((phi + 4 * M_PI) / 3)); // 实根3
+        roots.push_back(2 * r * cos(phi / 3) - b / 3); // 实根1
+        roots.push_back(2 * r * cos((phi + 2 * M_PI) / 3) - b / 3); // 实根2
+        roots.push_back(2 * r * cos((phi + 4 * M_PI) / 3) - b / 3); // 实根3
     }
 }
 
